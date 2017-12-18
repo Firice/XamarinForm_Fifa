@@ -5,7 +5,7 @@ using DLToolkit.Forms.Controls;
 
 namespace XamarinForm_Fifa.Droid
 {
-    [Activity(Label = "XamarinForm_Fifa", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "XamarinForm_Fifa", Icon = "@drawable/fifa", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

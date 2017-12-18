@@ -63,6 +63,7 @@
                               IsPullToRefreshEnabled="True"
                               RefreshCommand="{Binding RefreshCommand}"
                               IsRefreshing="{Binding IsRefreshing}"
+                              FlowColumnCount="1"
                               FlowColumnTemplate="{StaticResource MainTemplateSelector}">
             <control:FlowListView.FlowLoadingTemplate>
                 <DataTemplate>
