@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:mvvm="clr-namespace:XamarinForm_Fifa.MVVM"
+                xmlns:vm="clr-namespace:XamarinForm_Fifa.ViewModels"
+                xmlns:convert="clr-namespace:XamarinForm_Fifa.Converter"
+                x:Class="XamarinForm_Fifa.Views.MatchDetailPage"
+                x:Name="Root"
+                Title="{Binding Title}">
+
+    <mvvm:ViewBase.BindingContext>
+        <vm:MatchDetailPageViewModel/>
+    </mvvm:ViewBase.BindingContext>
+
+    <mvvm:ViewBase.Resources>
+        <ResourceDictionary>
+            <convert:StatusMatchLabel x:Key="StatusMatchLabel"/>
+            <convert:ActionMatch x:Key="ActionMatch"/>
+            <convert:LogoTeam x:Key="LogoTeam"/>
+
+            <vm:ActionTemplateSelector x:Key="ActionTemplateSelector">
+                <vm:ActionTemplateSelector.DefaultTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Label Text="{Binding ActionShort}"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Label Text="{Binding HomeOrAway}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.DefaultTemplate>
+                <vm:ActionTemplateSelector.StartEndTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="whistle.png"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.StartEndTemplate>
+                <vm:ActionTemplateSelector.GoalHomeTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="goal.png"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='H' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.GoalHomeTemplate>
+                <vm:ActionTemplateSelector.GoalAwayTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="goal.png"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='A' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.GoalAwayTemplate>
+                <vm:ActionTemplateSelector.CardHomeTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="{Binding ActionShort, Converter={StaticResource ActionMatch}}"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='H' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.CardHomeTemplate>
+                <vm:ActionTemplateSelector.CardAwayTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="{Binding ActionShort, Converter={StaticResource ActionMatch}}"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='A' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.CardAwayTemplate>
+                <vm:ActionTemplateSelector.SubstituteHomeTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="replace.png"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='H' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.SubstituteHomeTemplate>
+                <vm:ActionTemplateSelector.SubstituteAwayTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="10">
+                                <Label Text="{Binding ActionMinute}"/>
+                                <Image HeightRequest="15" WidthRequest="15" Source="replace.png"/>
+                                <Label Text="{Binding PersonShort}"/>
+                                <Image HeightRequest="25" WidthRequest="25" Source="{Binding BindingContext.MatchDetail, Source={x:Reference Root}, Converter={StaticResource LogoTeam}, ConverterParameter='A' }"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </vm:ActionTemplateSelector.SubstituteAwayTemplate>
+            </vm:ActionTemplateSelector>
+        </ResourceDictionary>
+    </mvvm:ViewBase.Resources>
+
+    <StackLayout Orientation="Vertical">
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" 
+                   Grid.Row="0" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Source="{Binding MatchDetail.HomeLogoImage}"/>
+            <StackLayout Grid.Column="1" 
+                         Grid.Row="0" 
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                <Label Text="{Binding MatchDetail, Converter={StaticResource StatusMatchLabel}}" 
+                       FontSize="Medium" 
+                       HorizontalTextAlignment="Center" 
+                       FontAttributes="Bold" />
+                <Label Text="{Binding MatchDetail.Score}" 
+                       FontSize="Medium" 
+                       HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <Image Grid.Column="2" 
+                   Grid.Row="0"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Source="{Binding MatchDetail.AwayLogoImage}"/>
+        </Grid>
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Text="{Binding MatchDetail.HomeTeamEn}" 
+                   FontSize="Medium" 
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
+            <Label Grid.Column="2"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Text="{Binding MatchDetail.AwayTeamEn}" 
+                   FontSize="Medium" 
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
+        </Grid>
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   HorizontalOptions="Start"
+                   Text="{Binding MatchDetail.City, StringFormat='City: {0}'}"
+                   HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1" 
+                   HorizontalOptions="End"
+                   Text="{Binding MatchDetail.Stadium, StringFormat='Stadium: {0}'}"
+                   HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <ListView ItemsSource="{Binding MatchDetail.Actions}" ItemTemplate="{StaticResource ActionTemplateSelector}"/>
+    </StackLayout>
+</mvvm:ViewBase>

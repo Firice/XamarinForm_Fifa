@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:mvvm="clr-namespace:XamarinForm_Fifa.MVVM"
+               xmlns:vm="clr-namespace:XamarinForm_Fifa.ViewModels"
+               x:Class="XamarinForm_Fifa.Views.TeamDetailPage"
+               x:Name="Root"
+               Title="{Binding Title}">
+
+    <mvvm:ViewBase.BindingContext>
+        <vm:TeamDetailPageViewModel/>
+    </mvvm:ViewBase.BindingContext>
+
+    <StackLayout>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                           IsVisible="{Binding IsBusy}" 
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"/>
+        <Grid IsVisible="{Binding IsNotBusy}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="Center">
+                    <Image Source="{Binding TeamDetail.LogoImage}" 
+                           HeightRequest="60"
+                           WidthRequest="60"/>
+                    <Label Text="{Binding TeamDetail.TeamEn}" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Grid>
+            <StackLayout Orientation="Vertical" 
+                         Grid.Row="1" 
+                         Padding="5">
+                <Label Text="{Binding TeamDetail.LatestMatch.CompetitionEn, StringFormat='Latest Match In {0}'}" 
+                       HorizontalTextAlignment="Start"/>
+                <Grid Padding="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0"
+                                 Orientation="Horizontal">
+                        <Image Source="{Binding TeamDetail.LatestMatch.HomeLogoImage}" 
+                               HeightRequest="30" 
+                               WidthRequest="30"/>
+                        <Label Text="{Binding TeamDetail.LatestMatch.HomeTeamEn}" 
+                               FontSize="10" 
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="{Binding TeamDetail.LatestMatch.Score}" 
+                               FontSize="10" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding TeamDetail.LatestMatch.Date, StringFormat='{0:dd-MMM-yyyy HH:mm}'}" 
+                               FontSize="10"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="2" 
+                                 Orientation="Horizontal" 
+                                 HorizontalOptions="End">
+                        <Label Text="{Binding TeamDetail.LatestMatch.AwayTeamEn}" 
+                               FontSize="10" 
+                               VerticalOptions="Center" 
+                               HorizontalTextAlignment="End"/>
+                        <Image Source="{Binding TeamDetail.LatestMatch.AwayLogoImage}" 
+                               HeightRequest="30" 
+                               WidthRequest="30"/>
+                    </StackLayout>
+                </Grid>
+                <Label Text="{Binding TeamDetail.NextMatch.CompetitionEn, StringFormat='Next Match In {0}'}" 
+                       HorizontalTextAlignment="Start"/>
+                <Grid Padding="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0"
+                                 Orientation="Horizontal">
+                        <Image Source="{Binding TeamDetail.NextMatch.HomeLogoImage}" 
+                               HeightRequest="30" 
+                               WidthRequest="30"/>
+                        <Label Text="{Binding TeamDetail.NextMatch.HomeTeamEn}" 
+                               FontSize="10" 
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="{Binding TeamDetail.NextMatch.Stadium, StringFormat='Stadium: {0}'}"
+                               FontSize="10" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding TeamDetail.NextMatch.Date, StringFormat='{0:dd-MMM-yyyy HH:mm}'}" 
+                               FontSize="10" 
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="2" 
+                                 Orientation="Horizontal" 
+                                 HorizontalOptions="End">
+                        <Label Text="{Binding TeamDetail.NextMatch.AwayTeamEn}" 
+                               FontSize="10" 
+                               VerticalOptions="Center" 
+                               HorizontalTextAlignment="End"/>
+                        <Image Source="{Binding TeamDetail.NextMatch.AwayLogoImage}" 
+                               HeightRequest="30" 
+                               WidthRequest="30"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+</mvvm:ViewBase>

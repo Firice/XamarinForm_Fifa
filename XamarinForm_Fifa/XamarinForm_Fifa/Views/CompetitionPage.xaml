@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:mvvm="clr-namespace:XamarinForm_Fifa.MVVM"
+                xmlns:vm="clr-namespace:XamarinForm_Fifa.ViewModels"
+                x:Class="XamarinForm_Fifa.Views.CompetitionPage"
+                x:Name="Root" 
+                Title="{Binding Title}">
+
+    <mvvm:ViewBase.BindingContext>
+        <vm:CompetitionPageViewModel/>
+    </mvvm:ViewBase.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <ListView ItemsSource="{Binding Competition.Matches}" 
+                      HasUnevenRows="True"
+                      IsVisible="{Binding IsNotBusy}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="6" BackgroundColor="White">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding BindingContext.MatchCommand, Source={x:Reference Root}}" 
+                                        CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}" 
+                                            CommandParameter="{Binding HomeTeamId}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Source="{Binding HomeLogoImage}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"/>
+                                    <Label Text="{Binding HomeTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="Start"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Score}" 
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        FontAttributes="Bold"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd-MMM-yyyy}'}" 
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:HH:mm}'}" 
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}" 
+                                            CommandParameter="{Binding AwayTeamId}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding AwayTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End"/>
+                                    <Image Source="{Binding AwayLogoImage}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                               IsRunning="{Binding IsBusy}"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</mvvm:ViewBase>

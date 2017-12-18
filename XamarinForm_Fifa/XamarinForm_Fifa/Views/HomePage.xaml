@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:mvvm="clr-namespace:XamarinForm_Fifa.MVVM;assembly=XamarinForm_Fifa"
+            xmlns:vm="clr-namespace:XamarinForm_Fifa.ViewModels;assembly=XamarinForm_Fifa"
+            xmlns:control="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+            x:Class="XamarinForm_Fifa.Views.HomePage"
+            x:Name="Root">
+
+    <mvvm:ViewBase.BindingContext>
+        <vm:HomePageViewModel/>
+    </mvvm:ViewBase.BindingContext>
+
+    <mvvm:ViewBase.Resources>
+        <ResourceDictionary>
+            <vm:MainTemplateSelector x:Key="MainTemplateSelector">
+                <vm:MainTemplateSelector.DefaultTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" 
+                                     BackgroundColor="White" 
+                                     Margin="0,0,0,10" Padding="10,5">
+                            <Image Source="{Binding LogoImage}" 
+                                   HeightRequest="30" 
+                                   WidthRequest="30"/>
+                            <Label Text="{Binding CompetitionEn}" 
+                                   VerticalTextAlignment="Center" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </vm:MainTemplateSelector.DefaultTemplate>
+                <vm:MainTemplateSelector.LiveTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" 
+                                     BackgroundColor="White" Margin="0,0,0,10" 
+                                     Padding="10,5">
+                            <Image Source="{Binding LogoImage}" 
+                                   HeightRequest="30" 
+                                   WidthRequest="30"/>
+                            <Label Text="{Binding CompetitionEn}" 
+                                   VerticalTextAlignment="Center" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="Aqua"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </vm:MainTemplateSelector.LiveTemplate>
+            </vm:MainTemplateSelector>
+        </ResourceDictionary>
+    </mvvm:ViewBase.Resources>
+
+    <Grid>
+        <control:FlowListView x:Key="MainListView" 
+                              FlowItemsSource="{Binding Competitions}"
+                              FlowColumnMinWidth="200"
+                              FlowTotalRecords="100"
+                              FlowIsLoadingInfiniteEnabled="True"
+                              FlowIsLoadingInfinite="{Binding IsLoadingInfinite}"
+                              FlowLoadingCommand="{Binding LoadingCommand}"
+                              FlowItemTappedCommand="{Binding SelectedCompetition}"
+                              RowHeight="60"
+                              SeparatorVisibility="None"
+                              IsPullToRefreshEnabled="True"
+                              RefreshCommand="{Binding RefreshCommand}"
+                              IsRefreshing="{Binding IsRefreshing}"
+                              FlowColumnTemplate="{StaticResource MainTemplateSelector}">
+            <control:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="Loading..." />
+                    </ViewCell>
+                </DataTemplate>
+            </control:FlowListView.FlowLoadingTemplate>
+        </control:FlowListView>
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                            IsRunning="{Binding IsBusy}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand" />
+    </Grid>
+</mvvm:ViewBase>
